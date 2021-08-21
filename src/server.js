@@ -5,7 +5,8 @@ import 'dotenv/config';
 import cors from 'cors';
 
 import logger from 'tools/logger';
-import { registerLogging, registerPreprocessor, registerRouters, setupDocs } from 'tools';
+import { registerLogging, registerPreprocessor, setupDocs } from 'tools';
+import { registerRouters } from 'helpers';
 
 const { PORT } = process.env;
 

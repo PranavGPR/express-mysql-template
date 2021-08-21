@@ -1,5 +1,7 @@
+import 'dotenv/config';
+import { name as appName, description, license, version } from 'package.json';
 import swaggerUI from 'swagger-ui-express';
-import { name as appName, description, license, version } from '../../package.json';
+
 import docs from 'docs';
 
 const documentObject = {
@@ -10,11 +12,7 @@ const documentObject = {
 		license: {
 			name: license
 		},
-		version,
-		contact: {
-			name: 'Pranav',
-			url: 'https://github.com/PranavGPR/savory-api'
-		}
+		version
 	},
 	paths: docs
 };
@@ -24,5 +22,5 @@ const documentObject = {
  * @param {*} app
  */
 export default function setupDocs(app) {
-	app.use('/', swaggerUI.serve, swaggerUI.setup(documentObject));
+	if (process.env.serveDocument) app.use('/docs', swaggerUI.serve, swaggerUI.setup(documentObject));
 }
