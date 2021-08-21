@@ -61,9 +61,9 @@ const fileLogTransport = (filename, level) => {
  */
 const getWinstonOptions = environment => {
 	let winstonConfigs = {
-		transports: [prettyConsoleTransport, fileLogTransport('logs/verbose.log', 'verbose')],
-		exceptionHandlers: [prettyConsoleTransport, fileLogTransport('logs/exceptions.log', 'error')],
-		rejectionHandlers: [prettyConsoleTransport, fileLogTransport('logs/rejections.log', 'warn')]
+		transports: [prettyConsoleTransport, fileLogTransport('log/verbose.log', 'verbose')],
+		exceptionHandlers: [prettyConsoleTransport, fileLogTransport('log/exceptions.log', 'error')],
+		rejectionHandlers: [prettyConsoleTransport, fileLogTransport('log/rejections.log', 'warn')]
 	};
 
 	if (environment !== 'production') {
