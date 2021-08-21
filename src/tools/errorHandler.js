@@ -1,7 +1,7 @@
 import logger from 'tools/logger';
 import { StatusCodes } from 'http-status-codes';
 
-export default (err, _req, res, _next) => {
+const errorHandler = (err, _req, res, _next) => {
 	logger.error(err.message ?? err);
 
 	if (err.errno === 1062 || 1136) {
@@ -21,6 +21,6 @@ export default (err, _req, res, _next) => {
  * Register the error handler
  * @param {*} ExpressAppInstance
  */
- export default function handleServerErrors(app) {
+export default function handleServerErrors(app) {
 	app.use(errorHandler);
 }

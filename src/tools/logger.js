@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import winston from 'winston';
-
-import Logger from './requestLogger';
+import requestLogger from './requestLogger';
 
 const { format, transports } = winston;
 const { combine, colorize, printf, json, prettyPrint, timestamp } = format;
@@ -10,7 +9,7 @@ const { combine, colorize, printf, json, prettyPrint, timestamp } = format;
  * Configures morgan request logging and adds the middleware.
  */
 export function registerLogging(app) {
-	if (process.env.logRequests) app.use(Logger);
+	if (process.env.logRequests) app.use(requestLogger());
 }
 
 function formatObject(param) {
@@ -56,13 +55,30 @@ const fileLogTransport = (filename, level) => {
 };
 
 /**
+ * Get winston configs and transports based on environment
+ * @param {string} environment
+ * @returns {{transports: Array, exceptionHandlers: Array, rejectionHandlers: Array}}
+ */
+const getWinstonOptions = environment => {
+	let winstonConfigs = {
+		transports: [prettyConsoleTransport, fileLogTransport('logs/verbose.log', 'verbose')],
+		exceptionHandlers: [prettyConsoleTransport, fileLogTransport('logs/exceptions.log', 'error')],
+		rejectionHandlers: [prettyConsoleTransport, fileLogTransport('logs/rejections.log', 'warn')]
+	};
+
+	if (environment !== 'production') {
+		// pop out file transports, log only on console
+		for (const configProp of Object.keys(winstonConfigs)) {
+			winstonConfigs[configProp].pop();
+		}
+	}
+
+	return { level: process.env.loggingLevel, ...winstonConfigs };
+};
+
+/**
  * Configures winston logger
  */
-const logger = winston.createLogger({
-	level: process.env.loggingLevel,
-	transports: [prettyConsoleTransport],
-	exceptionHandlers: [prettyConsoleTransport, fileLogTransport('log/exceptions.log', 'error')],
-	rejectionHandlers: [prettyConsoleTransport, fileLogTransport('log/rejections.log', 'warn')]
-});
+const logger = winston.createLogger(getWinstonOptions(process.env.NODE_ENV));
 
 export default logger;

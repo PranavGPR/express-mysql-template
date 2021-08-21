@@ -1,4 +1,4 @@
-import { sendSuccess } from 'helpers';
+import { sendSuccess } from 'helpers/responseSetters';
 
 /**
  * Controllers for all /ping routes

@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { name as appName, description, license, version } from 'package.json';
+import { name as appName, description, license, version } from '../../package.json';
 import swaggerUI from 'swagger-ui-express';
 
 import docs from 'docs';

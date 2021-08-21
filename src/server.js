@@ -4,9 +4,10 @@ import chalk from 'chalk';
 import 'dotenv/config';
 import cors from 'cors';
 
-import logger from 'tools/logger';
+import { handleServerErrors } from 'tools';
 import { registerLogging, registerPreprocessor, setupDocs } from 'tools';
 import { registerRouters } from 'helpers';
+import logger from 'tools/logger';
 
 const { PORT } = process.env;
 
@@ -16,6 +17,7 @@ app.use(express.json());
 registerLogging(app);
 registerPreprocessor(app);
 registerRouters(app);
+handleServerErrors(app);
 setupDocs(app);
 
 /**
