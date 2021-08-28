@@ -1,5 +1,5 @@
 {
-	"name": "backend-template",
+	"name": "mysql-express-backend-template",
 	"version": "1.0.0",
 	"main": "build/server.js",
 	"module": "src/server.js",
@@ -13,7 +13,7 @@
 		"lint:fix": "npm run lint -- --fix",
 		"test": "jest --watchAll --verbose --detectOpenHandles"
 	},
-	"keywords": ["nodejs", "mysql", "backend-template"],
+	"keywords": ["nodejs", "express", "mysql", "backend-template"],
 	"author": "PranavGPR",
 	"license": "ISC",
 	"description": "Node.js, express and MySQL backend server template",
